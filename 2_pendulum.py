@@ -47,20 +47,9 @@ def simpson(f, a, b, N):
     # Implementieren Sie eine zusammengesetzte Simpson Regel #
     #                                                        #
     ##########################################################
-    h = (b-a)/N
-    k = 0.0
-    t = a + h
-    for i in xrange(1, N/2 + 1):
-        k += 4*f(t)
-        t += 2*h
-
-    t = a + 2*h
-    for i in xrange(1, N/2):
-        k += 2*f(t)
-        t += 2*h
-
-    return (h/3)*(f(a)+f(b)+k)
-
+    x, h = linspace(a, b, 2*N+1, retstep=True)
+    I = h/3.0 * sum(f(x[:-2:2]) + 4.0*f(x[1:-1:2]) + f(x[2::2]))
+    return I
 
 def elliptic_k_quad(k, N=10):
     """Compute the elliptic integral K(k)
