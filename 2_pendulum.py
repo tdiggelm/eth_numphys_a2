@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+#############################################################################
+# course:   Numerische Methoden D-PHYS
+# exercise: assignment 2
+# author:   Thomas Diggelmann <thomas.diggelmann@student.ethz.ch>
+# date:     15.03.2015
+#############################################################################
 from numpy import array, sin, pi, shape, sqrt, linspace
 import matplotlib.pyplot as plt
 from ode45 import ode45
