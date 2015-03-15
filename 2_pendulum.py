@@ -159,10 +159,10 @@ if __name__ == '__main__':
     # Berechnen Sie hier die Anfangsauslenkung phiT #
     #                                               #
     #################################################
-    T = 1.8
+    T = 1.8 # the period to solve for
     F = lambda phi0: IntegratePendulum(phi0, T/4, l, g, True)[1][0]
     starttime = time()
-    phiT = fsolve(F, a1*pi/2)
+    phiT = fsolve(F, a1*pi/2) # use extreme 1 as starting point
     endtime = time()
     print('needed %f seconds' % (endtime-starttime))
     print(phiT*2/pi)
