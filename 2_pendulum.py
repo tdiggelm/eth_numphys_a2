@@ -186,17 +186,16 @@ if __name__ == '__main__':
     print("Initial value via exakt formula for T")
     print("Elliptic Integral by Quadrature")
 
-    starttime = time()
-    phiT = 0.0
     #################################################
     #                                               #
     # Berechnen Sie hier die Anfangsauslenkung phiT #
     #                                               #
     #################################################
     F = lambda phi0: sqrt(l/g)*elliptic_k_quad(sin(phi0/2)) - T/4
+    starttime = time()
     phiT = fsolve(F, a1*pi/2)
-    print(phiT)
     endtime = time()
+    print(phiT)
     print('needed %f seconds' % (endtime-starttime))
 
 
