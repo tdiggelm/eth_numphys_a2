@@ -149,10 +149,6 @@ if __name__ == '__main__':
     plt.legend(loc='upper left')
     plt.grid(True)
 
-    #plt.show()
-    #from sys import exit
-    #exit()
-
     # Unteraufgabe d)
 
     # zero finding:
