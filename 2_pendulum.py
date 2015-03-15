@@ -92,8 +92,13 @@ def agm(x, y, nit=5):
     # Implementieren Sie die AGM Iteration #
     #                                      #
     ########################################
-    pass
+    x0, y0 = x, y
+    for _ in xrange(5):
+        x = (x0 + y0) / 2
+        y = sqrt(x0*y0)
+        x0, y0 = x, y
 
+    return x
 
 def elliptic_k_agm(k, nit=5):
     """Compute the elliptic integral K(k)
@@ -108,7 +113,7 @@ def elliptic_k_agm(k, nit=5):
     # Berechnen Sie das elliptische Integral mittels AGM Iteration #
     #                                                              #
     ################################################################
-    pass
+    return pi/2 * 1 / agm(1-k, 1+k)
 
 
 
@@ -204,13 +209,14 @@ if __name__ == '__main__':
     print("Initial value via exakt formula for T")
     print("Elliptic Integral by Arithmetic-Geometric Mean")
 
-    starttime = time()
-    phiT = 0.0
     #################################################
     #                                               #
     # Berechnen Sie hier die Anfangsauslenkung phiT #
     #                                               #
     #################################################
-    print(phiT)
+    F = lambda phi0: sqrt(l/g)*elliptic_k_agm(sin(phi0/2)) - T/4
+    starttime = time()
+    phiT = fsolve(F, a1*pi/2)
     endtime = time()
+    print(phiT)
     print('needed %f seconds' % (endtime-starttime))
