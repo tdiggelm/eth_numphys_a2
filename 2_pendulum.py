@@ -125,20 +125,16 @@ if __name__ == '__main__':
 
 
     # Unteraufgabe c)
-
     a1 = 0.8
     a2 = 0.99
 
-    # Solve ODE for extreme values to check the period length:
-    t1 = 0.0
-    y1 = 0.0
-    t2 = 0.0
-    y2 = 0.0
     ####################################################
     #                                                  #
     # Loesen Sie das Anfangswertproblem fuer a1 und a2 #
     #                                                  #
     ####################################################
+
+    # Solve ODE for extreme values to check the period length:
     t1, y1 = IntegratePendulum(a1*pi/2)
     t2, y2 = IntegratePendulum(a2*pi/2)
 
