@@ -11,12 +11,10 @@ from ode45 import ode45
 from scipy.optimize import fsolve
 from sys import exit
 
-
 def PendulumODE(y, l, g):
     """PendulumODE return the right-hand side of the math. pendulum"""
     dydt = array([y[1], -g * sin(y[0]) / l])
     return dydt
-
 
 def IntegratePendulum(phi0, tEnd=1.8, l=0.6, g=9.81, flag=False):
     """IntegratePendulum solve the mathematical pendulum with ode45
@@ -31,7 +29,6 @@ def IntegratePendulum(phi0, tEnd=1.8, l=0.6, g=9.81, flag=False):
     # Benutzen Sie ode45 zur Zeitintegration #
     #                                        #
     ##########################################
-    #pass
     tspan = array([0, tEnd])
     y0 = array([phi0, 0])
     t, y = ode45(lambda t, y: PendulumODE(y, l, g), tspan, y0)
@@ -71,7 +68,6 @@ def elliptic_k_quad(k, N=10):
     # Berechnen Sie das elliptische Integral mittels Quadrartur #
     #                                                           #
     #############################################################
-
     K = lambda phi: 1 / sqrt(1-k**2*sin(phi)**2)
     return simpson(K, 0, pi/2, N)
 
@@ -112,8 +108,6 @@ def elliptic_k_agm(k, nit=5):
     return pi/2 * 1 / agm(1-k, 1+k)
 
 
-
-
 if __name__ == '__main__':
     from time import time
 
@@ -147,6 +141,7 @@ if __name__ == '__main__':
     plt.xlabel(r'$t$')
     plt.legend(loc='upper left')
     plt.grid(True)
+
 
     # Unteraufgabe d)
 
