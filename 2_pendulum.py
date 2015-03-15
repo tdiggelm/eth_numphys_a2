@@ -4,12 +4,10 @@ from ode45 import ode45
 from scipy.optimize import fsolve
 from sys import exit
 
-
 def PendulumODE(y, l, g):
     """PendulumODE return the right-hand side of the math. pendulum"""
     dydt = array([y[1], -g * sin(y[0]) / l])
     return dydt
-
 
 def IntegratePendulum(phi0, tEnd=1.8, l=0.6, g=9.81, flag=False):
     """IntegratePendulum solve the mathematical pendulum with ode45
@@ -47,19 +45,15 @@ def simpson(f, a, b, N):
     # Implementieren Sie eine zusammengesetzte Simpson Regel #
     #                                                        #
     ##########################################################
-    h = (b-a)/N
-    k = 0.0
-    t = a + h
-    for i in xrange(1, N/2 + 1):
-        k += 4*f(t)
-        t += 2*h
+    dt = (b - a) / N
+    k = f(a) + f(b)
+    for i in xrange(1, N, 2):
+        k += 4 * f(a + i*dt)
 
-    t = a + 2*h
-    for i in xrange(1, N/2):
-        k += 2*f(t)
-        t += 2*h
+    for i in xrange(2, N-1, 2):
+        k += 2 * f(a + i*dt)
 
-    return (h/3)*(f(a)+f(b)+k)
+    return k * dt / 3
 
 
 def elliptic_k_quad(k, N=10):
@@ -114,9 +108,6 @@ def elliptic_k_agm(k, nit=5):
     #                                                              #
     ################################################################
     return pi/2 * 1 / agm(1-k, 1+k)
-
-
-
 
 if __name__ == '__main__':
     from time import time
