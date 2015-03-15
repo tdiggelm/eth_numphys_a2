@@ -2,6 +2,7 @@ from numpy import array, sin, pi, shape, sqrt, linspace
 import matplotlib.pyplot as plt
 from ode45 import ode45
 from scipy.optimize import fsolve
+from sys import exit
 
 
 def PendulumODE(y, l, g):
@@ -41,28 +42,24 @@ def simpson(f, a, b, N):
     a, b:  Bounds of the integration interval
     N:     Number of subintervals
     """
-    I = 0.0
     ##########################################################
     #                                                        #
     # Implementieren Sie eine zusammengesetzte Simpson Regel #
     #                                                        #
     ##########################################################
-    return I
+    h = (b-a)/N
+    k = 0.0
+    t = a + h
+    for i in xrange(1, N/2 + 1):
+        k += 4*f(t)
+        t += 2*h
 
-    """
-    h=(b-a)/n
-    k=0.0
-    x=a + h
-    for i in range(1,n/2 + 1):
-        k += 4*f(x)
-        x += 2*h
+    t = a + 2*h
+    for i in xrange(1, N/2):
+        k += 2*f(t)
+        t += 2*h
 
-    x = a + 2*h
-    for i in range(1,n/2):
-        k += 2*f(x)
-        x += 2*h
     return (h/3)*(f(a)+f(b)+k)
-    """
 
 
 def elliptic_k_quad(k, N=10):
@@ -73,13 +70,14 @@ def elliptic_k_quad(k, N=10):
            N      ... number of intervals for Simpson
     Output: K(k)  ... function value
     """
-    K = 0.0
     #############################################################
     #                                                           #
     # Berechnen Sie das elliptische Integral mittels Quadrartur #
     #                                                           #
     #############################################################
-    return K
+
+    K = lambda phi: 1 / sqrt(1-k**2*sin(phi)**2)
+    return simpson(K, 0, pi/2, N)
 
 
 def agm(x, y, nit=5):
@@ -165,7 +163,7 @@ if __name__ == '__main__':
     phiT = fsolve(F, a1*pi/2) # use extreme 1 as starting point
     endtime = time()
     print('needed %f seconds' % (endtime-starttime))
-    print(phiT*2/pi)
+    print(phiT)
 
     # compute complete solution with period = tEnd for plotting
     t3, y3 = IntegratePendulum(phiT, tEnd, l, g, False)
@@ -195,6 +193,8 @@ if __name__ == '__main__':
     # Berechnen Sie hier die Anfangsauslenkung phiT #
     #                                               #
     #################################################
+    F = lambda phi0: sqrt(l/g)*elliptic_k_quad(sin(phi0/2)) - T/4
+    phiT = fsolve(F, a1*pi/2)
     print(phiT)
     endtime = time()
     print('needed %f seconds' % (endtime-starttime))
