@@ -1,0 +1,19 @@
+#############################################################################
+# course:   Numerische Methoden D-PHYS
+# exercise: assignment 2
+# author:   Thomas Diggelmann <thomas.diggelmann@student.ethz.ch>
+# date:     15.03.2015
+# content:	script output from terminal
+#############################################################################
+
+Initial value via time-integration
+needed 0.053813 seconds
+[ 1.48551281]
+Initial value via exakt formula for T
+Elliptic Integral by Quadrature
+[ 1.48551245]
+needed 0.003640 seconds
+Initial value via exakt formula for T
+Elliptic Integral by Arithmetic-Geometric Mean
+[ 1.48551244]
+needed 0.001080 seconds
