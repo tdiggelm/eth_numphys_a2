@@ -51,9 +51,20 @@ def simpson(f, a, b, N):
     # Implementieren Sie eine zusammengesetzte Simpson Regel #
     #                                                        #
     ##########################################################
-    x, h = linspace(a, b, 2*N+1, retstep=True)
-    I = h/3.0 * sum(f(x[:-2:2]) + 4.0*f(x[1:-1:2]) + f(x[2::2]))
-    return I
+
+    """ sanity check """
+    if N % 2:
+        raise ValueError("N must be an even number")
+
+    """ reference implementation from script (more accurate result) """
+    # x, h = linspace(a, b, 2*N+1, retstep=True)
+    # return h/3.0 * sum(f(x[:-2:2]) + 4.0*f(x[1:-1:2]) + f(x[2::2]))
+
+    """ canonical form (simple to read) """
+    h = (b - a) / N # step length
+    s_e = sum(f(a + j*h) for j in xrange(2, N-1, 2)) # even numbers
+    s_o = sum(f(a + j*h) for j in xrange(1, N, 2)) # odd numbers
+    return h/3 * (f(a) + 2*s_e + 4*s_o + f(b))
 
 def elliptic_k_quad(k, N=10):
     """Compute the elliptic integral K(k)
